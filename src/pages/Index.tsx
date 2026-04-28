@@ -48,6 +48,10 @@ const Index = () => {
         }
       : null;
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [stage]);
+
   const handleRestart = () => {
     setSelection(null);
     setSkipped(false);
