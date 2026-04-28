@@ -75,6 +75,21 @@ export const ReadingScreen = ({
             )
           )}
         </div>
+
+        {!done && (
+          <div className="mt-16 flex justify-center">
+            <button
+              onClick={() => {
+                setDone(true);
+                setTimeout(onComplete, 500);
+              }}
+              className="inline-flex items-center justify-center rounded-full border border-hairline bg-paper px-7 py-3 text-[14px] text-ink-soft hover:text-ink hover:border-ink/30 hover:-translate-y-px transition-all duration-300"
+              style={{ transitionTimingFunction: "var(--transition-quiet)" }}
+            >
+              I've read enough
+            </button>
+          </div>
+        )}
       </article>
 
       {/* Bottom progress */}
