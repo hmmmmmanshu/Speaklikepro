@@ -10,7 +10,13 @@ const fmt = (s: number) => {
   return `${m}:${r.toString().padStart(2, "0")}`;
 };
 
-export const SpeakingScreen = ({ onComplete }: { onComplete: () => void }) => {
+export const SpeakingScreen = ({
+  onComplete,
+  onSkip,
+}: {
+  onComplete: () => void;
+  onSkip: () => void;
+}) => {
   const [recording, setRecording] = useState(false);
   const [remaining, setRemaining] = useState(SPEAK_SECONDS);
 
@@ -30,7 +36,7 @@ export const SpeakingScreen = ({ onComplete }: { onComplete: () => void }) => {
   }, [recording, onComplete]);
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 fade-in">
+    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-20 fade-in">
       <p className="text-[13px] tracking-[0.22em] uppercase text-whisper mb-4">
         {recording ? "Listening" : "Ready"}
       </p>
@@ -64,12 +70,13 @@ export const SpeakingScreen = ({ onComplete }: { onComplete: () => void }) => {
         {recording ? "No pause. No retry. Just speak." : "Tap to begin."}
       </p>
 
-      {recording && (
-        <button
-          onClick={onComplete}
-          className="mt-6 btn-ghost"
-        >
+      {recording ? (
+        <button onClick={onComplete} className="mt-6 btn-ghost">
           Finish early
+        </button>
+      ) : (
+        <button onClick={onSkip} className="mt-6 btn-ghost">
+          Skip speaking
         </button>
       )}
     </main>

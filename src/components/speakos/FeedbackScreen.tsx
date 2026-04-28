@@ -24,11 +24,84 @@ const TRANSCRIPT_PARTS: { text: string; kind: "normal" | "filler" | "strong" }[]
 
 export const FeedbackScreen = ({
   topic,
+  skipped = false,
   onRestart,
 }: {
   topic: Topic;
+  skipped?: boolean;
   onRestart: () => void;
 }) => {
+  if (skipped) {
+    // Pull a few key ideas from the article body (paragraphs only, first 3)
+    const keyIdeas = topic.article.body
+      .filter((b) => b.type === "p")
+      .slice(0, 3)
+      .map((b) => b.text);
+
+    return (
+      <main className="min-h-screen px-6 py-20 fade-in">
+        <div className="max-w-2xl mx-auto">
+          <p className="text-[13px] tracking-[0.22em] uppercase text-whisper mb-5">
+            {topic.label}
+          </p>
+          <h1 className="font-serif text-[40px] leading-tight text-ink">
+            A quiet pause
+          </h1>
+          <p className="mt-3 text-[15px] text-whisper">
+            You skipped speaking. Try next time for better feedback.
+          </p>
+
+          <section className="mt-14 border-y border-hairline divide-y divide-hairline">
+            <div className="py-6 grid grid-cols-[1fr_auto] items-baseline">
+              <div className="text-[15px] text-ink font-medium">Reading</div>
+              <div className="font-serif text-[24px] text-ink leading-none">complete</div>
+            </div>
+            <div className="py-6 grid grid-cols-[1fr_auto] items-baseline">
+              <div className="text-[15px] text-ink-soft">Speaking</div>
+              <div className="text-[14px] text-whisper italic">not attempted</div>
+            </div>
+          </section>
+
+          <section className="mt-16">
+            <h2 className="text-[13px] tracking-[0.18em] uppercase text-whisper mb-5">
+              Key ideas
+            </h2>
+            <ul className="space-y-5">
+              {keyIdeas.map((idea, i) => (
+                <li
+                  key={i}
+                  className="prose-reading text-[17px] pl-5 border-l border-hairline fade-up"
+                  style={{ animationDelay: `${i * 100}ms` }}
+                >
+                  {idea}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="mt-16">
+            <h2 className="text-[13px] tracking-[0.18em] uppercase text-whisper mb-5">
+              A way to explain it
+            </h2>
+            <p className="prose-reading text-[18px] text-ink-soft">
+              Open with one sentence that names the idea. Then offer a small,
+              concrete example from your own life. End by saying what changes
+              if the idea is true. Three movements. Nothing more.
+            </p>
+          </section>
+
+          <div className="mt-20 flex items-center justify-center gap-6">
+            <button onClick={onRestart} className="btn-quiet">Try again</button>
+          </div>
+
+          <p className="mt-10 text-center text-[13px] text-whisper italic">
+            "Understanding shows when you speak."
+          </p>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="min-h-screen px-6 py-20 fade-in">
       <div className="max-w-2xl mx-auto">

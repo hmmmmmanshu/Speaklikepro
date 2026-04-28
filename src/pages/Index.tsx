@@ -10,6 +10,7 @@ type Stage = "topic" | "reading" | "speaking" | "feedback";
 const Index = () => {
   const [stage, setStage] = useState<Stage>("topic");
   const [topic, setTopic] = useState<Topic | null>(null);
+  const [skipped, setSkipped] = useState(false);
 
   useEffect(() => {
     document.title = "SpeakOS — Think clearly. Speak simply.";
@@ -29,6 +30,7 @@ const Index = () => {
         <TopicScreen
           onSelect={(t) => {
             setTopic(t);
+            setSkipped(false);
             setStage("reading");
           }}
         />
@@ -41,13 +43,24 @@ const Index = () => {
         />
       )}
       {stage === "speaking" && (
-        <SpeakingScreen onComplete={() => setStage("feedback")} />
+        <SpeakingScreen
+          onComplete={() => {
+            setSkipped(false);
+            setStage("feedback");
+          }}
+          onSkip={() => {
+            setSkipped(true);
+            setStage("feedback");
+          }}
+        />
       )}
       {stage === "feedback" && topic && (
         <FeedbackScreen
           topic={topic}
+          skipped={skipped}
           onRestart={() => {
             setTopic(null);
+            setSkipped(false);
             setStage("topic");
           }}
         />
