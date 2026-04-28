@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TOPICS, type Topic } from "./topics";
+import { CATEGORIES, type Category, type Topic } from "./topics";
 
 const FAQS = [
   {
@@ -60,6 +60,8 @@ const FaqItem = ({ q, a }: { q: string; a: string }) => {
 };
 
 export const TopicScreen = ({ onSelect }: { onSelect: (t: Topic) => void }) => {
+  const [active, setActive] = useState<Category | null>(null);
+
   return (
     <main className="min-h-screen px-6 py-20 fade-in">
       <div className="w-full max-w-3xl mx-auto text-center">
@@ -67,51 +69,80 @@ export const TopicScreen = ({ onSelect }: { onSelect: (t: Topic) => void }) => {
           SpeakOS
         </p>
 
-        <h1 className="font-serif text-[40px] sm:text-[52px] leading-[1.15] text-ink fade-up"
-            style={{ animationDelay: "80ms" }}>
+        <h1
+          className="font-serif text-[40px] sm:text-[52px] leading-[1.15] text-ink fade-up"
+          style={{ animationDelay: "80ms" }}
+        >
           I want to learn to think
           <br className="hidden sm:block" />
           {" "}and speak about
         </h1>
 
-        <div className="mt-14 flex flex-wrap justify-center gap-3 fade-up"
-             style={{ animationDelay: "200ms" }}>
-          {TOPICS.map((t, i) => (
-            <button
-              key={t.id}
-              onClick={() => onSelect(t)}
-              className="pill fade-up"
-              style={{ animationDelay: `${260 + i * 50}ms` }}
+        {/* Quiet intro — moved above the pills */}
+        <p
+          className="mt-12 max-w-xl mx-auto text-[15px] leading-[1.8] text-whisper fade-up"
+          style={{ animationDelay: "180ms" }}
+        >
+          Most people consume more than they can express. We read, scroll, and
+          move on without ever testing our understanding.
+        </p>
+
+        {/* Categories or Subtopics */}
+        <div className="mt-12 min-h-[120px]">
+          {!active ? (
+            <div
+              key="categories"
+              className="flex flex-wrap justify-center gap-3 fade-up"
             >
-              {t.label}
-            </button>
-          ))}
+              {CATEGORIES.map((c, i) => (
+                <button
+                  key={c.id}
+                  onClick={() => setActive(c)}
+                  className="pill fade-up"
+                  style={{ animationDelay: `${i * 40}ms` }}
+                >
+                  {c.label}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div key={active.id} className="fade-up">
+              <p className="text-[12px] tracking-[0.22em] uppercase text-whisper mb-5">
+                {active.label}
+              </p>
+              <div className="flex flex-wrap justify-center gap-3">
+                {active.topics.map((t, i) => (
+                  <button
+                    key={t.id}
+                    onClick={() => onSelect(t)}
+                    className="pill fade-up"
+                    style={{ animationDelay: `${i * 40}ms` }}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+              <button
+                onClick={() => setActive(null)}
+                className="btn-ghost mt-8"
+              >
+                ← Back
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* Quiet context */}
-        <section
-          className="mt-24 max-w-xl mx-auto fade-up"
-          style={{ animationDelay: "600ms" }}
+        <p
+          className="mt-16 text-[14px] text-hairline italic fade-up"
+          style={{ animationDelay: "500ms", color: "hsl(0 0% 72%)" }}
         >
-          <p className="text-[15px] leading-[1.8] text-whisper">
-            Most people consume more than they can express.
-            <br />
-            We read, scroll, and move on — without ever testing our understanding.
-          </p>
-          <p className="mt-6 text-[15px] leading-[1.8] text-whisper">
-            SpeakOS helps you slow down.
-            <br />
-            Read something deeply, then explain it in your own words.
-          </p>
-          <p className="mt-10 text-[14px] text-hairline italic" style={{ color: "hsl(0 0% 72%)" }}>
-            Clarity comes from articulation.
-          </p>
-        </section>
+          Clarity comes from articulation.
+        </p>
 
         {/* FAQ */}
         <section
           className="mt-32 max-w-xl mx-auto text-left fade-up"
-          style={{ animationDelay: "700ms" }}
+          style={{ animationDelay: "600ms" }}
         >
           <p className="text-[12px] tracking-[0.22em] uppercase text-whisper mb-4 text-center">
             Questions
@@ -123,8 +154,10 @@ export const TopicScreen = ({ onSelect }: { onSelect: (t: Topic) => void }) => {
           </div>
         </section>
 
-        <p className="mt-24 text-[13px] text-whisper fade-up"
-           style={{ animationDelay: "800ms" }}>
+        <p
+          className="mt-24 text-[13px] text-whisper fade-up"
+          style={{ animationDelay: "700ms" }}
+        >
           Read deeply. Speak clearly. Improve over time.
         </p>
       </div>
