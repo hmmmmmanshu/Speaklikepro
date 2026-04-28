@@ -121,8 +121,14 @@ export const TopicScreen = ({
           about it for{" "}
           <span className="text-premium font-medium">3 minutes</span>. Test your
           understanding, expose your blind spots, and build true{" "}
-          <span className="text-ink">clarity</span> over time. Pick a topic to
-          start:
+          <span className="text-ink">clarity</span> over time.
+        </p>
+
+        <p 
+          className="mt-8 text-[14px] text-ink font-medium tracking-wide fade-up"
+          style={{ animationDelay: "220ms" }}
+        >
+          Pick a topic to start:
         </p>
 
         <div className="mt-12 flex flex-wrap justify-center gap-3 items-start fade-up relative z-10">
