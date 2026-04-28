@@ -2,95 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* SpeakOS — a quiet space for thinking.
+   Pure white. Soft gray. Deep black.
+   Serif for thinking, sans for action. */
 
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 0 0% 8%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 8%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Deep ink black */
+    --primary: 0 0% 8%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Soft paper gray */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 8%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 0 0% 94%;
+    --accent-foreground: 0 0% 8%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 0 0% 92%;
+    --input: 0 0% 92%;
+    --ring: 0 0% 8%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Semantic SpeakOS tokens */
+    --ink: 0 0% 8%;
+    --ink-soft: 0 0% 20%;
+    --whisper: 0 0% 55%;
+    --hairline: 0 0% 90%;
+    --paper: 0 0% 100%;
+    --paper-tint: 0 0% 98%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --transition-quiet: cubic-bezier(0.32, 0.72, 0.24, 1);
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 20%;
+    --sidebar-primary: 0 0% 8%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 8%;
+    --sidebar-border: 0 0% 92%;
+    --sidebar-ring: 0 0% 8%;
   }
 }
 
@@ -99,7 +66,95 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  .font-serif {
+    font-family: 'Source Serif 4', 'Iowan Old Style', 'Apple Garamond', Georgia, serif;
+    font-feature-settings: "kern", "liga";
+  }
+}
+
+@layer components {
+  /* Topic pill — soft, clickable, calm */
+  .pill {
+    @apply inline-flex items-center justify-center rounded-full border border-hairline
+           bg-paper px-5 py-2.5 text-[15px] text-ink-soft
+           transition-all duration-300;
+    transition-timing-function: var(--transition-quiet);
+  }
+  .pill:hover {
+    @apply bg-paper-tint border-ink/20 text-ink -translate-y-px;
+  }
+  .pill:active {
+    @apply translate-y-0;
+  }
+
+  /* Reading prose */
+  .prose-reading {
+    @apply font-serif text-ink leading-[1.75] text-[19px];
+  }
+  .prose-reading p {
+    @apply mb-6;
+  }
+  .prose-reading h2 {
+    @apply font-serif text-[26px] leading-snug mt-12 mb-4 text-ink;
+  }
+
+  /* Quiet button */
+  .btn-quiet {
+    @apply inline-flex items-center justify-center rounded-full
+           bg-ink text-paper px-7 py-3.5 text-[15px] font-medium
+           transition-all duration-300;
+    transition-timing-function: var(--transition-quiet);
+  }
+  .btn-quiet:hover {
+    @apply bg-ink-soft -translate-y-px;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-full
+           text-whisper text-[14px] hover:text-ink transition-colors duration-300;
+  }
+}
+
+@layer utilities {
+  .fade-in {
+    animation: fadeIn 700ms var(--transition-quiet) both;
+  }
+  .fade-up {
+    animation: fadeUp 800ms var(--transition-quiet) both;
+  }
+  .fade-blur-in {
+    animation: fadeBlurIn 600ms var(--transition-quiet) both;
+  }
+  .breathe {
+    animation: breathe 3.6s ease-in-out infinite;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeBlurIn {
+    from { opacity: 0; filter: blur(8px); }
+    to   { opacity: 1; filter: blur(0); }
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1);   box-shadow: 0 0 0 0 hsl(var(--ink) / 0.08); }
+    50%      { transform: scale(1.04); box-shadow: 0 0 0 18px hsl(var(--ink) / 0); }
   }
 }

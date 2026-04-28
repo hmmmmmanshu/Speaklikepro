@@ -47,6 +47,16 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        ink: {
+          DEFAULT: "hsl(var(--ink))",
+          soft: "hsl(var(--ink-soft))",
+        },
+        whisper: "hsl(var(--whisper))",
+        hairline: "hsl(var(--hairline))",
+        paper: {
+          DEFAULT: "hsl(var(--paper))",
+          tint: "hsl(var(--paper-tint))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
