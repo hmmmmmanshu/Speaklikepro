@@ -1,24 +1,33 @@
+import { useEffect, useState } from "react";
 import type { SessionStatus } from "@/hooks/use-session";
 
 const STATUS_COPY: Record<
   SessionStatus,
-  { title: string; subtitle: string }
+  { title: string; subtitles: string[] }
 > = {
-  idle: { title: "Preparing\u2026", subtitle: "" },
+  idle: { title: "Preparing\u2026", subtitles: [""] },
   uploading: {
-    title: "Uploading your recording\u2026",
-    subtitle: "This will take a moment.",
+    title: "Sending your recording\u2026",
+    subtitles: ["This will take a moment."],
   },
   transcribing: {
-    title: "Listening to you\u2026",
-    subtitle: "Converting speech to text.",
+    title: "Processing your words\u2026",
+    subtitles: [
+      "Converting speech to text.",
+      "Picking up every sentence.",
+      "Almost done transcribing.",
+    ],
   },
   analyzing: {
     title: "Thinking about what you said\u2026",
-    subtitle: "Comparing your response to the article.",
+    subtitles: [
+      "Comparing your ideas to the article.",
+      "Scoring clarity, structure, and depth.",
+      "Building your feedback report.",
+    ],
   },
-  complete: { title: "Done!", subtitle: "" },
-  error: { title: "Something went wrong", subtitle: "" },
+  complete: { title: "Done!", subtitles: [""] },
+  error: { title: "Something went wrong", subtitles: [""] },
 };
 
 export const ProcessingScreen = ({
@@ -34,6 +43,22 @@ export const ProcessingScreen = ({
 }) => {
   const msg = STATUS_COPY[status];
   const isError = status === "error";
+
+  const [subIdx, setSubIdx] = useState(0);
+
+  useEffect(() => {
+    setSubIdx(0);
+  }, [status]);
+
+  useEffect(() => {
+    if (msg.subtitles.length <= 1) return;
+    const id = setInterval(() => {
+      setSubIdx((i) => (i + 1) % msg.subtitles.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [status, msg.subtitles.length]);
+
+  const subtitle = msg.subtitles[subIdx] ?? "";
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-6 py-20 fade-in">
@@ -53,9 +78,12 @@ export const ProcessingScreen = ({
         {msg.title}
       </h2>
 
-      {msg.subtitle && (
-        <p className="mt-4 text-[15px] text-whisper text-center">
-          {msg.subtitle}
+      {subtitle && (
+        <p
+          key={`${status}-${subIdx}`}
+          className="mt-4 text-[15px] text-whisper text-center fade-in"
+        >
+          {subtitle}
         </p>
       )}
 

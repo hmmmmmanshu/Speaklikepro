@@ -30,7 +30,9 @@ export function useSession() {
         formData.append("article_id", articleId);
         formData.append("anonymous_id", anonymousId);
 
+        await new Promise((r) => setTimeout(r, 800));
         setStatus("transcribing");
+
         const transcribeRes = await fetch(
           `${SUPABASE_URL}/functions/v1/transcribe-audio`,
           { method: "POST", body: formData },
