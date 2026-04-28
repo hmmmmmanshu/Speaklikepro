@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import type { Topic } from "./topics";
+import { useEffect, useMemo, useState } from "react";
+import type { SessionContent } from "@/types/speakos";
 
-const READ_SECONDS = 5 * 60;
+const READ_SECONDS = 3 * 60;
 
 const fmt = (s: number) => {
   const m = Math.floor(s / 60);
@@ -9,17 +9,32 @@ const fmt = (s: number) => {
   return `${m}:${r.toString().padStart(2, "0")}`;
 };
 
+function parseBody(body: string): { type: "p"; text: string }[] {
+  return body
+    .split(/\n\n+/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .map((text) => ({ type: "p" as const, text }));
+}
+
 export const ReadingScreen = ({
-  topic,
+  content,
   onComplete,
   onBack,
 }: {
-  topic: Topic;
+  content: SessionContent;
   onComplete: () => void;
   onBack: () => void;
 }) => {
   const [remaining, setRemaining] = useState(READ_SECONDS);
   const [done, setDone] = useState(false);
+
+  const paragraphs = useMemo(
+    () => parseBody(content.article.body),
+    [content.article.body],
+  );
+
+  const readingTime = `${Math.ceil(content.article.word_count / 200)} min read`;
 
   useEffect(() => {
     if (done) return;
@@ -40,11 +55,10 @@ export const ReadingScreen = ({
 
   return (
     <main className="min-h-screen bg-paper fade-in">
-      {/* Top bar */}
       <header className="fixed top-0 inset-x-0 z-20 bg-paper/85 backdrop-blur-md">
         <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
           <button onClick={onBack} className="btn-ghost">
-            ← Back
+            &larr; Back
           </button>
           <div className="text-[13px] tabular-nums text-ink-soft tracking-wide">
             {fmt(remaining)}
@@ -53,7 +67,6 @@ export const ReadingScreen = ({
         <div className="h-px bg-hairline" />
       </header>
 
-      {/* Article */}
       <article
         className={`max-w-2xl mx-auto px-6 pt-32 pb-40 transition-all duration-700 ${
           done ? "blur-md scale-[0.99] opacity-60" : ""
@@ -61,19 +74,22 @@ export const ReadingScreen = ({
         style={{ transitionTimingFunction: "var(--transition-quiet)" }}
       >
         <p className="text-[13px] tracking-[0.18em] uppercase text-whisper mb-5">
-          {topic.label} · {topic.article.readingTime}
+          {content.subtopicName} &middot; {readingTime}
         </p>
         <h1 className="font-serif text-[36px] sm:text-[44px] leading-[1.15] text-ink mb-12">
-          {topic.article.title}
+          {content.article.title}
         </h1>
+
+        {content.article.premise && (
+          <p className="text-[17px] text-ink-soft italic leading-relaxed mb-10">
+            {content.article.premise}
+          </p>
+        )}
+
         <div className="prose-reading">
-          {topic.article.body.map((b, i) =>
-            b.type === "h2" ? (
-              <h2 key={i}>{b.text}</h2>
-            ) : (
-              <p key={i}>{b.text}</p>
-            )
-          )}
+          {paragraphs.map((b, i) => (
+            <p key={i}>{b.text}</p>
+          ))}
         </div>
 
         {!done && (
@@ -92,12 +108,13 @@ export const ReadingScreen = ({
         )}
       </article>
 
-      {/* Bottom progress */}
       <div className="fixed bottom-0 inset-x-0 z-20">
         <div className="max-w-3xl mx-auto px-6 pb-6">
           <div className="flex items-center justify-between text-[12px] text-whisper mb-2 tracking-wide">
             <span>Reading</span>
-            <span className="tabular-nums">{fmt(READ_SECONDS - remaining)} / 5:00</span>
+            <span className="tabular-nums">
+              {fmt(READ_SECONDS - remaining)} / 3:00
+            </span>
           </div>
           <div className="h-[2px] bg-hairline rounded-full overflow-hidden">
             <div
@@ -108,7 +125,6 @@ export const ReadingScreen = ({
         </div>
       </div>
 
-      {/* Overlay when done */}
       {done && (
         <div className="fixed inset-0 z-30 flex items-center justify-center px-6 fade-blur-in">
           <div className="text-center max-w-md">

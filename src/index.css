@@ -48,6 +48,10 @@
     --paper: 0 0% 100%;
     --paper-tint: 0 0% 98%;
 
+    /* Premium accent (muted gold/bronze) */
+    --premium: 38 45% 55%;
+    --premium-foreground: 0 0% 100%;
+
     --transition-quiet: cubic-bezier(0.32, 0.72, 0.24, 1);
 
     --sidebar-background: 0 0% 100%;
@@ -96,7 +100,7 @@
     @apply bg-paper-tint border-ink/20 text-ink -translate-y-px;
   }
   .pill:active {
-    @apply translate-y-0;
+    @apply translate-y-0 bg-premium text-premium-foreground border-premium;
   }
 
   /* Reading prose */
@@ -120,10 +124,16 @@
   .btn-quiet:hover {
     @apply bg-ink-soft -translate-y-px;
   }
+  .btn-quiet:active {
+    @apply translate-y-0 bg-premium text-premium-foreground border-premium;
+  }
 
   .btn-ghost {
     @apply inline-flex items-center justify-center rounded-full
            text-whisper text-[14px] hover:text-ink transition-colors duration-300;
+  }
+  .btn-ghost:active {
+    @apply text-premium;
   }
 }
 

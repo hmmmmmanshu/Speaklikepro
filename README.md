@@ -1,3 +1,3 @@
-# Welcome to your Lovable project
+# Speak Space
 
-TODO: Document your project here
+Speak Space is a distraction-free web app for practicing clear thinking and speaking.
