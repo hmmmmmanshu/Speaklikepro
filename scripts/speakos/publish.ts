@@ -1,7 +1,7 @@
 /**
- * SpeakOS Content Publisher Agent — runnable pipeline + operating brief summary.
+ * Comprehendly Content Publisher Agent — runnable pipeline + operating brief summary.
  *
- * Mission: generate ~3‑minute SpeakOS readings and publish idempotently to
+ * Mission: generate ~3‑minute Comprehendly readings and publish idempotently to
  * `speakos.topics`, `speakos.subtopics`, `speakos.articles`, `speakos.article_chunks`
  * with `vector(1536)` embeddings (`text-embedding-3-small` @ 1536 dimensions).
  *
@@ -176,8 +176,8 @@ async function generateArticle(
   slot: Slot,
   chatModel: string
 ): Promise<GeneratedArticle> {
-  const system = `You are the SpeakOS editorial engine. Output valid JSON only.
-SpeakOS is a thinking + articulation trainer. The user flow is Read → Think → Speak → Reflect.
+  const system = `You are the Comprehendly editorial engine. Output valid JSON only.
+Comprehendly is a thinking + articulation trainer. The user flow is Read → Think → Speak → Reflect.
 Tone: calm, dense, minimal jargon, intellectually honest, CEFR B2–C1. No hype, clickbait, or fluff.
 
 JSON shape (exact keys):
@@ -727,7 +727,7 @@ async function main() {
     }
   }
 
-  console.log("\n=== SpeakOS Publisher Report ===");
+  console.log("\n=== Comprehendly Publisher Report ===");
   console.log(`topics processed: ${SPEAKOS_TOPICS.length}`);
   console.log(
     `subtopics processed: ${SPEAKOS_TOPICS.reduce((n, t) => n + t.subtopics.length, 0)}`

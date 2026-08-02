@@ -78,8 +78,8 @@ export const TopicScreen = ({
   return (
     <main className="min-h-screen px-6 py-20 fade-in relative">
       <img
-        src="/Thoughtly.png"
-        alt="SpeakOS logo"
+        src="/comprehendly.png"
+        alt="Comprehendly logo"
         className="absolute top-6 left-6 h-10 w-auto object-contain fade-up"
       />
 
@@ -92,7 +92,7 @@ export const TopicScreen = ({
           >
             <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
               <span className="text-[13px] tracking-[0.22em] uppercase">
-                SpeakOS
+                Comprehendly
               </span>
             </AnimatedShinyText>
           </div>

@@ -1,8 +1,8 @@
-# SpeakOS — System Definition
+# Comprehendly — System Definition
 
 ## 1. What We Are Building
 
-SpeakOS is a minimal, single-screen web application that helps users improve their ability to **think clearly and speak with depth**.
+Comprehendly is a minimal, single-screen web application that helps users improve their ability to **think clearly and speak with depth**.
 
 The core loop:
 
@@ -32,7 +32,7 @@ But they rarely:
 
 This creates an illusion of knowledge.
 
-SpeakOS solves this by forcing a simple loop:
+Comprehendly solves this by forcing a simple loop:
 
 > Read -> Think -> Speak -> Reflect
 
@@ -53,7 +53,7 @@ Existing tools:
 * Focus only on speaking fluency
 * Do not measure depth or understanding
 
-SpeakOS solves:
+Comprehendly solves:
 
 * Depth of understanding
 * Clarity of articulation
@@ -314,7 +314,7 @@ NOT:
 
 Most people mistake recognition for understanding.
 
-SpeakOS forces:
+Comprehendly forces:
 
 > Expression as proof of understanding
 

@@ -1,5 +1,5 @@
 /**
- * SpeakOS curriculum taxonomy aligned with src/components/speakos/topics.ts
+ * Comprehendly curriculum taxonomy aligned with src/components/speakos/topics.ts
  * Stable slugs for speakos.topics / speakos.subtopics.
  */
 export type SubtopicSeed = {

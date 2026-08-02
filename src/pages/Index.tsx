@@ -24,13 +24,13 @@ const Index = () => {
   const session = useSession();
 
   useEffect(() => {
-    document.title = "SpeakOS \u2014 Think clearly. Speak simply.";
+    document.title = "Comprehendly \u2014 Think clearly. Speak simply.";
     const meta =
       document.querySelector('meta[name="description"]') ??
       Object.assign(document.createElement("meta"), { name: "description" });
     meta.setAttribute(
       "content",
-      "SpeakOS is a calm space to read deeply, then explain ideas in your own words. Think clearly. Speak simply.",
+      "Comprehendly is a calm space to read deeply, then explain ideas in your own words. Think clearly. Speak simply.",
     );
     if (!meta.parentElement) document.head.appendChild(meta);
   }, []);

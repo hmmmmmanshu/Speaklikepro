@@ -1,3 +1,3 @@
-# Speak Space
+# Comprehendly
 
-Speak Space is a distraction-free web app for practicing clear thinking and speaking.
+Comprehendly is a distraction-free web app for practicing clear thinking and speaking.
