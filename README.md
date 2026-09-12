@@ -10,22 +10,22 @@
 </p>
 
 <p align="center">
-  <a href="https://comprehending.org"><img src="https://img.shields.io/badge/Live-comprehending.org-1a1a1a?style=for-the-badge" alt="Live site" /></a>
+  <a href="https://www.comprehendly.org/"><img src="https://img.shields.io/badge/Live-comprehendly.org-1a1a1a?style=for-the-badge" alt="Live site" /></a>
   <a href="https://github.com/hmmmmmanshu/Speaklikepro"><img src="https://img.shields.io/badge/GitHub-Public-2ea44f?style=for-the-badge&logo=github" alt="Public repository" /></a>
   <a href="#project-status"><img src="https://img.shields.io/badge/Docs-13_Sep_2026-4a6cf7?style=for-the-badge" alt="Documentation date" /></a>
 </p>
 
 <p align="center">
-  <a href="https://comprehending.org"><strong>https://comprehending.org</strong></a>
+  <a href="https://www.comprehendly.org/"><strong>https://www.comprehendly.org/</strong></a>
   ·
   Built by <a href="https://www.himanshugoswami.com/">Himanshu Goswami</a>
 </p>
 
 ---
 
-This repository is the **public, professional** source for [Comprehendly](https://comprehending.org).
+This repository is the **public, professional** source for [Comprehendly](https://www.comprehendly.org/).
 
-This README is the current project description, written **13 September 2026**. It replaces older planning notes and earlier product names (SpeakOS / Speaklikepro). If something in this file and the running product disagree, the product at [comprehending.org](https://comprehending.org) is the source of truth.
+This README is the current project description, written **13 September 2026**. It replaces older planning notes and earlier product names (SpeakOS / Speaklikepro). If something in this file and the running product disagree, the product at [comprehendly.org](https://www.comprehendly.org/) is the source of truth.
 
 ---
 
@@ -186,7 +186,7 @@ Topics are built as a small library of serious, short essays — closer to a qui
 | Data / auth-less sessions | Supabase (Postgres, Storage, Edge Functions) |
 | Speech | Browser MediaRecorder → transcription function |
 | Language + embeddings | OpenAI |
-| Hosting | Production site: [comprehending.org](https://comprehending.org) |
+| Hosting | Production site: [comprehendly.org](https://www.comprehendly.org/) |
 
 ---
 
@@ -246,7 +246,7 @@ The GitHub repository is still named **Speaklikepro**. The product name is **Com
 | --- | --- |
 | **Kind** | Public professional project |
 | **Product** | Comprehendly |
-| **Live site** | [https://comprehending.org](https://comprehending.org) |
+| **Live site** | [https://www.comprehendly.org/](https://www.comprehendly.org/) |
 | **Author** | [Himanshu Goswami](https://www.himanshugoswami.com/) |
 | **This document** | 13 September 2026 |
 
@@ -258,5 +258,5 @@ Older internal definition files have been removed. Treat this README and the liv
 
 <p align="center">
   <em>Clarity is earned.</em><br />
-  <a href="https://comprehending.org">comprehending.org</a>
+  <a href="https://www.comprehendly.org/">www.comprehendly.org</a>
 </p>
