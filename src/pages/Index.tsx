@@ -36,7 +36,9 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    if (session.status === "complete") setStage("feedback");
+    // "unavailable" = scoring backend is paused; still show a graceful wrap-up.
+    if (session.status === "complete" || session.status === "unavailable")
+      setStage("feedback");
   }, [session.status]);
 
   const content: SessionContent | null =
@@ -127,6 +129,7 @@ const Index = () => {
           content={content}
           result={session.result}
           skipped={skipped}
+          scoringUnavailable={session.status === "unavailable"}
           onRestart={handleRestart}
         />
       )}

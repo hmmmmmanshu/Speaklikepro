@@ -72,7 +72,7 @@ export const TopicScreen = ({
 }: {
   onSelect: (s: SubtopicSelection) => void;
 }) => {
-  const { data: topics, isLoading } = useTopics();
+  const { data: topics } = useTopics();
   const [active, setActive] = useState<TopicWithSubtopics | null>(null);
 
   return (
@@ -124,63 +124,75 @@ export const TopicScreen = ({
           <span className="text-ink">clarity</span> over time.
         </p>
 
-        <p 
+        <p
           className="mt-8 text-[14px] text-ink font-medium tracking-wide fade-up"
           style={{ animationDelay: "220ms" }}
         >
-          Pick a topic to start:
+          Pick a subject to start:
         </p>
 
-        <div className="mt-12 flex flex-wrap justify-center gap-3 items-start fade-up relative z-10">
-          {isLoading ? (
-            <p className="text-[14px] text-whisper animate-pulse">
-              Loading topics\u2026
-            </p>
-          ) : (
-            (topics ?? []).map((c, i) => {
-              const isActive = active?.id === c.id;
+        {/* Subject cloud \u2014 stays stable; subtopics open in the panel below */}
+        <div
+          className="mt-10 flex flex-wrap justify-center gap-2.5 fade-up relative z-10"
+          style={{ animationDelay: "260ms" }}
+        >
+          {(topics ?? []).map((c, i) => {
+            const isActive = active?.id === c.id;
 
-              return (
-                <div
-                  key={c.id}
-                  className="flex flex-col items-center transition-all duration-500"
-                >
+            return (
+              <button
+                key={c.id}
+                onClick={() => setActive(isActive ? null : c)}
+                aria-pressed={isActive}
+                className={cn(
+                  "pill transition-all duration-300",
+                  isActive
+                    ? "bg-premium text-premium-foreground border-premium hover:bg-premium/90 shadow-md"
+                    : "hover:border-ink/20",
+                )}
+                style={{ animationDelay: `${260 + i * 30}ms` }}
+              >
+                {c.name}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Subtopic panel \u2014 reserved space keeps the cloud from jumping */}
+        <div className="mt-9 min-h-[148px] flex items-start justify-center px-2">
+          {active ? (
+            <div key={active.id} className="w-full max-w-md fade-blur-in">
+              {active.description && (
+                <p className="font-serif italic text-[16px] text-ink-soft leading-relaxed mb-6">
+                  {active.description}
+                </p>
+              )}
+              <div className="flex flex-wrap justify-center gap-2.5">
+                {active.subtopics.map((s, j) => (
                   <button
-                    onClick={() => setActive(isActive ? null : c)}
-                    className={cn(
-                      "pill transition-all duration-300 z-20",
-                      isActive
-                        ? "bg-premium text-premium-foreground border-premium hover:bg-premium/90 shadow-md"
-                        : "hover:border-ink/20",
-                    )}
-                    style={{ animationDelay: `${i * 40}ms` }}
+                    key={s.id}
+                    onClick={() =>
+                      onSelect({
+                        topicName: active.name,
+                        subtopicId: s.id,
+                        subtopicName: s.name,
+                      })
+                    }
+                    className="inline-flex items-center justify-center rounded-full border border-ink/15 bg-paper px-4 py-2 text-[13px] text-ink shadow-sm transition-all duration-300 hover:border-premium hover:text-premium hover:-translate-y-px whitespace-nowrap fade-up"
+                    style={{
+                      animationDelay: `${j * 45}ms`,
+                      transitionTimingFunction: "var(--transition-quiet)",
+                    }}
                   >
-                    {c.name}
+                    {s.name}
                   </button>
-
-                  {isActive && (
-                    <div className="flex flex-wrap justify-center gap-3 mt-4 animate-in slide-in-from-top-2 fade-in duration-300 max-w-[85vw] sm:max-w-[400px]">
-                      {c.subtopics.map((s, j) => (
-                        <button
-                          key={s.id}
-                          onClick={() =>
-                            onSelect({
-                              topicName: c.name,
-                              subtopicId: s.id,
-                              subtopicName: s.name,
-                            })
-                          }
-                          className="inline-flex items-center justify-center rounded-full border border-ink/15 bg-paper px-3.5 py-1.5 text-[12px] text-ink hover:border-premium hover:text-premium transition-all shadow-sm whitespace-nowrap"
-                          style={{ animationDelay: `${j * 30}ms` }}
-                        >
-                          {s.name}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            })
+                ))}
+              </div>
+            </div>
+          ) : (
+            <p className="text-[13px] text-whisper fade-in">
+              Choose a subject, then a question to speak on.
+            </p>
           )}
         </div>
 

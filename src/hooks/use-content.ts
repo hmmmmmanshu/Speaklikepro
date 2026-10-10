@@ -1,59 +1,30 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/lib/supabase";
 import type { TopicWithSubtopics, DbArticle } from "@/types/speakos";
+import { LOCAL_TOPICS, getLocalArticle } from "@/content/library";
+
+// Topics, subtopics, and articles are served from the local content library
+// (src/content/library.ts) rather than Supabase, so the read -> speak flow keeps
+// working even when the Supabase project is paused. AI scoring still uses
+// Supabase; see src/hooks/use-session.ts.
 
 export function useTopics() {
   return useQuery({
-    queryKey: ["speakos", "topics"],
-    queryFn: async (): Promise<TopicWithSubtopics[]> => {
-      const { data: topics, error: topicErr } = await supabase
-        .schema("speakos")
-        .from("topics")
-        .select("*")
-        .eq("is_active", true)
-        .order("sort_order");
-
-      if (topicErr) throw topicErr;
-
-      const { data: subtopics, error: subErr } = await supabase
-        .schema("speakos")
-        .from("subtopics")
-        .select("*")
-        .eq("is_active", true)
-        .order("sort_order");
-
-      if (subErr) throw subErr;
-
-      return (topics ?? []).map((t) => ({
-        ...t,
-        subtopics: (subtopics ?? []).filter(
-          (s: { topic_id: string }) => s.topic_id === t.id,
-        ),
-      }));
-    },
-    staleTime: 10 * 60 * 1000,
+    queryKey: ["content", "topics"],
+    queryFn: async (): Promise<TopicWithSubtopics[]> => LOCAL_TOPICS,
+    initialData: LOCAL_TOPICS,
+    staleTime: Infinity,
   });
 }
 
 export function useRandomArticle(subtopicId: string | null) {
   return useQuery({
-    queryKey: ["speakos", "article", subtopicId],
+    queryKey: ["content", "article", subtopicId],
     queryFn: async (): Promise<DbArticle> => {
-      const { data, error } = await supabase
-        .schema("speakos")
-        .from("articles")
-        .select(
-          "id, topic_id, subtopic_id, title, slug, premise, body, reading_target_seconds, word_count, key_ideas, speaking_anchors, reflection_question, speaking_prompt",
-        )
-        .eq("subtopic_id", subtopicId!)
-        .eq("status", "published");
-
-      if (error) throw error;
-      if (!data?.length) throw new Error("No articles available");
-
-      return data[Math.floor(Math.random() * data.length)];
+      const article = subtopicId ? getLocalArticle(subtopicId) : null;
+      if (!article) throw new Error("No article available for this topic");
+      return article;
     },
     enabled: !!subtopicId,
-    staleTime: 0,
+    staleTime: Infinity,
   });
 }

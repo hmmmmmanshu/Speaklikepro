@@ -27,6 +27,7 @@ const STATUS_COPY: Record<
     ],
   },
   complete: { title: "Done!", subtitles: [""] },
+  unavailable: { title: "Scoring is paused…", subtitles: [""] },
   error: { title: "Something went wrong", subtitles: [""] },
 };
 

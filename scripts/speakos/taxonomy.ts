@@ -1,6 +1,6 @@
 /**
- * Comprehendly curriculum taxonomy aligned with src/components/speakos/topics.ts
- * Stable slugs for speakos.topics / speakos.subtopics.
+ * Comprehendly curriculum taxonomy aligned with src/content/library.ts
+ * (the runtime content source). Stable slugs for speakos.topics / speakos.subtopics.
  */
 export type SubtopicSeed = {
   slug: string;
@@ -110,6 +110,61 @@ export const SPEAKOS_TOPICS: TopicSeed[] = [
       { slug: "economics-prices", name: "Prices", sort_order: 10 },
       { slug: "economics-markets", name: "Markets", sort_order: 20 },
       { slug: "economics-inequality", name: "Inequality", sort_order: 30 },
+    ],
+  },
+  {
+    slug: "history",
+    name: "History",
+    description: "The long view — how things rise, fall, and quietly repeat.",
+    sort_order: 90,
+    subtopics: [
+      { slug: "history-fall", name: "How things end", sort_order: 10 },
+      { slug: "history-forgotten", name: "The forgotten", sort_order: 20 },
+      { slug: "history-repeat", name: "Why we repeat", sort_order: 30 },
+    ],
+  },
+  {
+    slug: "mind",
+    name: "The Mind",
+    description: "The strangest object in the universe, turned to look at itself.",
+    sort_order: 100,
+    subtopics: [
+      { slug: "mind-consciousness", name: "Consciousness", sort_order: 10 },
+      { slug: "mind-memory", name: "Memory", sort_order: 20 },
+      { slug: "mind-free-will", name: "Free will", sort_order: 30 },
+    ],
+  },
+  {
+    slug: "money",
+    name: "Money",
+    description: "Wealth, risk, and the quiet arithmetic of enough.",
+    sort_order: 110,
+    subtopics: [
+      { slug: "money-compounding", name: "Compounding", sort_order: 10 },
+      { slug: "money-risk", name: "Risk", sort_order: 20 },
+      { slug: "money-enough", name: "Enough", sort_order: 30 },
+    ],
+  },
+  {
+    slug: "cosmos",
+    name: "The Cosmos",
+    description: "Deep time, vast scale, and our brief bright moment in the dark.",
+    sort_order: 120,
+    subtopics: [
+      { slug: "cosmos-scale", name: "Scale", sort_order: 10 },
+      { slug: "cosmos-time", name: "Deep time", sort_order: 20 },
+      { slug: "cosmos-silence", name: "The Great Silence", sort_order: 30 },
+    ],
+  },
+  {
+    slug: "art",
+    name: "Art",
+    description: "Beauty, making, and the long argument about taste.",
+    sort_order: 130,
+    subtopics: [
+      { slug: "art-beauty", name: "Beauty", sort_order: 10 },
+      { slug: "art-making", name: "The creative act", sort_order: 20 },
+      { slug: "art-taste", name: "Taste", sort_order: 30 },
     ],
   },
 ];
