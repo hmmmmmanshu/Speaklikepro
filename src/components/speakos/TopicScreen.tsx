@@ -75,13 +75,39 @@ export const TopicScreen = ({
   const { data: topics } = useTopics();
   const [active, setActive] = useState<TopicWithSubtopics | null>(null);
 
+  const scrollToId = (id: string) => {
+    document
+      .getElementById(id)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
   return (
     <main className="min-h-screen px-6 py-20 fade-in relative">
-      <img
-        src="/comprehendly.png"
-        alt="Comprehendly logo"
-        className="absolute top-6 left-6 h-10 w-auto object-contain fade-up"
-      />
+      <nav className="fixed inset-x-0 top-0 z-40 border-b border-hairline bg-paper/85 backdrop-blur-md">
+        <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+          <button
+            onClick={scrollToTop}
+            className="font-serif text-[19px] tracking-tight text-ink transition-colors duration-300 hover:text-premium"
+          >
+            Comprehendly
+          </button>
+          <div className="flex items-center gap-7">
+            <button
+              onClick={() => scrollToId("about")}
+              className="text-[14px] text-ink-soft transition-colors duration-300 hover:text-ink"
+            >
+              About
+            </button>
+            <button
+              onClick={() => scrollToId("questions")}
+              className="text-[14px] text-ink-soft transition-colors duration-300 hover:text-ink"
+            >
+              Questions
+            </button>
+          </div>
+        </div>
+      </nav>
 
       <div className="w-full max-w-3xl mx-auto text-center">
         <div className="mb-10 flex justify-center fade-up">
@@ -205,9 +231,65 @@ export const TopicScreen = ({
           <span className="text-premium">articulation</span>.
         </p>
 
+        {/* Product preview */}
         <section
-          className="mt-24 max-w-xl mx-auto text-left fade-up"
+          className="mt-20 max-w-3xl mx-auto fade-up"
+          style={{ animationDelay: "550ms" }}
+        >
+          <div className="overflow-hidden rounded-2xl border border-hairline bg-paper-tint shadow-sm">
+            <video
+              src="/comprehendly-preview.mp4"
+              className="block h-auto w-full"
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
+              preload="metadata"
+            />
+          </div>
+          <p className="mt-4 text-center text-[13px] text-whisper">
+            A quick look at a session.
+          </p>
+        </section>
+
+        {/* About — why this exists */}
+        <section
+          id="about"
+          className="mt-24 max-w-xl mx-auto text-left scroll-mt-24 fade-up"
           style={{ animationDelay: "600ms" }}
+        >
+          <p className="text-[12px] tracking-[0.22em] uppercase text-premium mb-5 text-center font-medium">
+            About
+          </p>
+          <h2 className="font-serif text-[28px] sm:text-[32px] leading-tight text-ink text-center mb-8">
+            Why this exists
+          </h2>
+          <div className="space-y-5 text-[16px] leading-[1.8] text-ink-soft">
+            <p>
+              I kept doing the same thing. I&rsquo;d read a long essay, highlight
+              a paragraph, and close the tab feeling like I understood it. Then
+              someone would ask what the argument actually was, and I&rsquo;d
+              stall &mdash; I had the title, not the idea.
+            </p>
+            <p>
+              Recognizing something is not the same as understanding it. Public
+              speaking apps wanted better delivery. Flashcards wanted the right
+              answer. Read-later apps just grew the pile. None of that was the
+              problem: I could recognize an idea and still not hold it for three
+              minutes in my own words.
+            </p>
+            <p>
+              So I built a way to check. Read once. Close it. Speak. See where
+              the thinking is thin. That&rsquo;s the whole tool.
+            </p>
+          </div>
+        </section>
+
+        <section
+          id="questions"
+          className="mt-24 max-w-xl mx-auto text-left scroll-mt-24 fade-up"
+          style={{ animationDelay: "650ms" }}
         >
           <p className="text-[12px] tracking-[0.22em] uppercase text-premium mb-4 text-center font-medium">
             Questions
